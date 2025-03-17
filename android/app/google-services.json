@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589601062313",
+    "project_id": "social-dz-e5e9d",
+    "storage_bucket": "social-dz-e5e9d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589601062313:android:fab0b12e7dbed15a1118b8",
+        "android_client_info": {
+          "package_name": "com.example.social_dz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCduCDd0HtBRgBf2-9YGoRGZzI1MgNyMzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
