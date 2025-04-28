@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_dz/auth/google_services.dart';
 import 'package:social_dz/components/google.dart';
 import 'package:social_dz/components/mybutton.dart';
 import 'package:social_dz/components/mytext.dart';
@@ -22,7 +25,111 @@ class _LoginScreenState extends State<RegisterScreen> {
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
-  Future<dynamic>? signin() {}
+  @override
+  void dispose() {
+    email.dispose();
+    fullName.dispose();
+    password.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
+
+  // Function to handle user registration
+  Future signUp() async {
+    // Check if passwords match
+    if (password.text.trim() != confirmPassword.text.trim()) {
+      _showErrorDialog('Passwords do not match.');
+      return;
+    }
+
+    // Check if the email is valid
+    if (!RegExp(
+      r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
+    ).hasMatch(email.text.trim())) {
+      _showErrorDialog('Invalid email format.');
+      return;
+    }
+
+    // Show loading circle while attempting to register
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // Prevent dismissing the dialog by tapping outside
+      builder: (context) {
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+
+    try {
+      // Attempt to create a user with email and password
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: email.text.trim(),
+            password: password.text.trim(),
+          );
+      addUser(email.text, fullName.text);
+
+      // Dismiss the loading dialog
+      Navigator.of(context).pop();
+
+      // Show success message
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Registration Successful')));
+    } on FirebaseAuthException catch (e) {
+      // Dismiss the loading dialog
+      Navigator.of(context).pop();
+
+      // Handle specific FirebaseAuth errors
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage =
+              'The email address is already in use by another account.';
+          break;
+        case 'weak-password':
+          errorMessage =
+              'The password is too weak. Please choose a stronger password.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'The email address is badly formatted.';
+          break;
+        default:
+          errorMessage = 'An unexpected error occurred. Please try again.';
+      }
+
+      // Show dialog with the specific error message
+      _showErrorDialog(errorMessage);
+    }
+  }
+
+  Future addUser(String email, String username) async {
+    // Create a new user with the given email and username
+    await FirebaseFirestore.instance.collection("users").add({
+      'email': email.trim(),
+      'fullName': fullName.text.trim(),
+    });
+  }
+
+  // Function to show an error dialog with the provided message
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(), // Close the dialog
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -94,7 +201,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Mybutton(onTap: signin, text: 'Sign Up'),
+                  Mybutton(onTap: signUp, text: 'Sign Up'),
                   SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -124,14 +231,14 @@ class _LoginScreenState extends State<RegisterScreen> {
                   SizedBox(height: 30),
                   Google(
                     imagepath: "assets/images/google.png",
-                    onTap: signin,
+                    onTap: () => GoogleServices().signInWithGoogle(),
                     text: "Sign In with google",
                     color: Colors.black,
                   ),
                   SizedBox(height: 30),
                   Facebook(
                     imagepath: "assets/images/facebook.png",
-                    onTap: signin,
+                    onTap: signUp,
                     text: "Sign In with Facebook",
                   ),
                   SizedBox(height: 20),

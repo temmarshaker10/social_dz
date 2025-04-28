@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white, // خلفية الشريط السفلي
+      selectedItemColor: Color(0xFF1877F2), // لون الأيقونة عند التحديد
+      unselectedItemColor: Colors.grey[700], // لون الأيقونات الأخرى
+    ),
     primaryColor: Color(0xFF2C3E50),
     dividerColor: Color(0xFFE0E0E0),
     hintColor: Color(0xFF757575),
@@ -19,10 +24,22 @@ class AppTheme {
       shadow: Color(0xFFE0E0E0),
       onSurface: Colors.black,
     ),
+    hoverColor: Colors.white,
     scaffoldBackgroundColor: Color(0xFFF5F5F5),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Color(0xFF007BFF),
-      foregroundColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white, // خلفية الشريط العلوي
+      elevation: 0, // إزالة الظل
+      titleTextStyle: TextStyle(
+        color: Color(0xFF212121), // لون النص (رمادي داكن)
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: IconThemeData(
+        color: Color(0xFF212121), // لون الأيقونات
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: Color(0xFF1877F2), // لون الأيقونة النشطة (أزرق فيسبوك)
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -41,6 +58,12 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Color(0xFF1E1E1E), // خلفية الشريط السفلي
+      selectedItemColor: Color(0xFF2196F3), // لون الأيقونة عند التحديد
+      unselectedItemColor: Colors.grey[400], // لون الأيقونات الأخرى
+    ),
+
     primaryColor: Color(0xFF1E1E2C),
     dividerColor: Color(0xFF33373D),
     hintColor: Color(0xFFBDBDBD),
@@ -58,10 +81,22 @@ class AppTheme {
       surface: Color(0xFF1E1E1E), // سطح داكن
       onSurface: Colors.white,
     ),
+    hoverColor: Color(0xFF1A1A1A),
     scaffoldBackgroundColor: Color(0xFF121212),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Color(0xFF6200EA),
-      foregroundColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFF1E1E1E), // خلفية الشريط العلوي
+      elevation: 0,
+      titleTextStyle: TextStyle(
+        color: Color(0xFFF5F5F5), // لون النص (رمادي فاتح)
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: IconThemeData(
+        color: Color(0xFFF5F5F5), // لون الأيقونات
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: Color(0xFF2196F3), // لون الأيقونة النشطة (أزرق فاتح)
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
