@@ -21,6 +21,7 @@ class _AddPostPageState extends State<AddPostPage> {
           size: 20,
           isFight: true,
         ),
+        centerTitle: true,
       ),
     );
   }

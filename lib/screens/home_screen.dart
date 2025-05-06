@@ -97,7 +97,24 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: DrawerHeader(
+          child: Column(
+            children: [
+              ListTile(
+                title: Mytext(
+                  text: "LogOut",
+                  color: colors.onSecondary,
+                  size: 15,
+                  isFight: false,
+                ),
+                trailing: Icon(Icons.logout),
+                onTap: () => FirebaseAuth.instance.signOut(),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: GNav(
         onTabChange: _onTabTapped,
         padding: EdgeInsets.all(15),
