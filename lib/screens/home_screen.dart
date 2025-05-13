@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -30,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     HomePage(),
     AiChatPage(),
-    AddPostPage(),
     NotificationPage(),
     ProfilePage(),
   ];
@@ -50,11 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  // دالة للتحقق إذا كان المستخدم جديدًا
   void _checkIfNewUser() async {
-    await user.reload(); // تحديث بيانات المستخدم
-    final updatedUser =
-        FirebaseAuth.instance.currentUser; // جلب المستخدم المحدث
+    await user.reload();
+    final updatedUser = FirebaseAuth.instance.currentUser;
 
     if (updatedUser != null) {
       final creationTime = updatedUser.metadata.creationTime;
@@ -71,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // دالة لعرض رسالة الترحيب مع تأثير الاحتفال
   void _showWelcomeMessage() {
     _confettiController.play();
 
@@ -96,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+
     return Scaffold(
       drawer: Drawer(
         child: DrawerHeader(
@@ -115,32 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: GNav(
-        onTabChange: _onTabTapped,
-        padding: EdgeInsets.all(15),
-        duration: Duration(milliseconds: 300),
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        backgroundColor: theme.bottomNavigationBarTheme.backgroundColor!,
-        activeColor: theme.bottomNavigationBarTheme.selectedItemColor,
-        color: theme.bottomNavigationBarTheme.unselectedItemColor,
-        tabs: [
-          GButton(icon: Icons.home, text: 'Home'),
-          GButton(icon: Icons.smart_toy, text: " AI Chat"),
-          GButton(icon: Icons.add, text: 'Add Post'),
-          GButton(icon: Icons.notifications, text: "Notification"),
-          GButton(icon: Icons.person, text: "Profile"),
-        ],
-        gap: 4,
-      ),
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(0),
-          child: Mytext(
-            text: "Sozia",
-            color: theme.appBarTheme.titleTextStyle!.color!,
-            size: 30,
-            isFight: true,
-          ),
+        title: Mytext(
+          text: "Sozia",
+          color: theme.appBarTheme.titleTextStyle!.color!,
+          size: 30,
+          isFight: true,
         ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
@@ -158,17 +134,49 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           SafeArea(child: _pages[_currentindex]),
-          // تأثير الاحتفال
           Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
               confettiController: _confettiController,
-              blastDirection: pi / 2, // للأعلى
+              blastDirection: pi / 2,
               emissionFrequency: 0.5,
               gravity: 0.2,
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => AddPostPage(
+                    uid: user.uid,
+                    userImage: "shaker",
+                    username: "temmar",
+                  ),
+            ),
+          );
+        },
+        backgroundColor: colors.primary,
+        child: Icon(Icons.add, color: Colors.white),
+      ),
+      bottomNavigationBar: GNav(
+        onTabChange: _onTabTapped,
+        padding: EdgeInsets.all(15),
+        duration: Duration(milliseconds: 300),
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        backgroundColor: theme.bottomNavigationBarTheme.backgroundColor!,
+        activeColor: theme.bottomNavigationBarTheme.selectedItemColor,
+        color: theme.bottomNavigationBarTheme.unselectedItemColor,
+        tabs: [
+          GButton(icon: Icons.home, text: 'Home'),
+          GButton(icon: Icons.smart_toy, text: 'AI Chat'),
+          GButton(icon: Icons.notifications, text: 'Notification'),
+          GButton(icon: Icons.person, text: 'Profile'),
+        ],
+        gap: 4,
       ),
     );
   }
