@@ -94,21 +94,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       drawer: Drawer(
-        child: DrawerHeader(
-          child: Column(
-            children: [
-              ListTile(
-                title: Mytext(
-                  text: "LogOut",
-                  color: colors.onSecondary,
-                  size: 15,
-                  isFight: false,
-                ),
-                trailing: Icon(Icons.logout),
-                onTap: () => FirebaseAuth.instance.signOut(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DrawerHeader(child: CircleAvatar()),
+            ListTile(
+              leading: Mytext(
+                text: "LogOut",
+                color: colors.onSurface,
+                size: 15,
+                isFight: false,
               ),
-            ],
-          ),
+              trailing: IconButton(
+                onPressed: () => FirebaseAuth.instance.signOut(),
+                icon: Icon(Icons.logout),
+              ),
+            ),
+            SizedBox(height: 10),
+          ],
         ),
       ),
       appBar: AppBar(
