@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "welcome": "Welcome in Social dz",
+  "fullName": "Full Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "forgotPassword": "Forgot Password?",
+  "signUp": "Sign Up",
+  "signIn": "Sign In",
+  "orSignInWith": "OR Sign In with",
+  "signInWithGoogle": "Sign In with Google",
+  "signInWithFacebook": "Sign In with Facebook",
+  "alreadyHaveAccount": "Already have an account?",
+  "login": "Login",
+  "dontHaveAccount": "Don't have an account?",
+  "register": "Register"
+}

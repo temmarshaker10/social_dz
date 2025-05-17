@@ -1,0 +1,18 @@
+{
+  "@@locale": "ar",
+  "welcome": "مرحبًا بك في Social dz",
+  "fullName": "الاسم الكامل",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "signUp": "إنشاء حساب",
+  "signIn": "تسجيل الدخول",
+  "orSignInWith": "أو سجّل الدخول عبر",
+  "signInWithGoogle": "الدخول عبر Google",
+  "signInWithFacebook": "الدخول عبر Facebook",
+  "alreadyHaveAccount": "هل لديك حساب؟",
+  "login": "تسجيل الدخول",
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "register": "إنشاء حساب"
+}
