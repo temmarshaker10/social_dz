@@ -42,7 +42,7 @@ class Google extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Mytext(text: text, color: color, size: 23, isFight: true),
-              Image.asset(imagepath, height: 20),
+              Image.asset(imagepath, height: 30),
             ],
           ),
         ),

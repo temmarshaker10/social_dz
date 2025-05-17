@@ -41,7 +41,7 @@ class Facebook extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Mytext(text: text, color: Colors.white, size: 23, isFight: true),
-              Image.asset(imagepath, height: 20),
+              Image.asset(imagepath, height: 30),
             ],
           ),
         ),
