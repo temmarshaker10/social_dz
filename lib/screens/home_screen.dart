@@ -172,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ConfettiWidget(
               confettiController: _confettiController,
               blastDirection: pi / 2,
-              emissionFrequency: 0.5,
-              gravity: 0.2,
+              emissionFrequency: 1,
+              gravity: 0.4,
             ),
           ),
         ],
