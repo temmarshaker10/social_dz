@@ -6,12 +6,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:social_dz/components/mytext.dart';
+import 'package:social_dz/l10n/app_localizations.dart';
 import 'package:social_dz/pages/add_post_page.dart';
 import 'package:social_dz/pages/ai_chat_page.dart';
 import 'package:social_dz/pages/home_page.dart';
 import 'package:social_dz/pages/notification_page.dart';
 import 'package:social_dz/pages/profile_page.dart';
+
+import '../providers/local_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -111,6 +115,32 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 10),
+            ListTile(
+              onTap: () {
+                final provider = Provider.of<LocaleProvider>(
+                  context,
+                  listen: false,
+                );
+                final currentLocale = provider.locale;
+
+                final newLocale =
+                    currentLocale.languageCode == 'en'
+                        ? const Locale('ar')
+                        : const Locale('en');
+
+                provider.setLocale(newLocale);
+              },
+              leading: const Icon(Icons.language),
+              title: Text(
+                Provider.of<LocaleProvider>(
+                          context,
+                          listen: false,
+                        ).locale.languageCode ==
+                        'en'
+                    ? 'Change to Arabic'
+                    : 'التبديل إلى الإنجليزية',
+              ), // تأكد من وجود الكلمة في .arb
+            ),
           ],
         ),
       ),

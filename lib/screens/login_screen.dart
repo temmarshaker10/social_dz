@@ -42,18 +42,17 @@ class _LoginScreenState extends State<LoginScreen> {
             email: email.text,
             password: password.text,
           );
-      Navigator.of(context).pop(); // Dismiss the loading dialog
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Login Success')));
-      }
-      // Dismiss the loading dialog and show success message
+      if (!mounted) return;
       // Dismiss the loading dialog
+      Navigator.of(context).pop();
+
+      //show the success message
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Login Success')));
     } on FirebaseAuthException catch (e) {
       // Ensure the widget is mounted before updating UI
       if (!mounted) return;
-
       Navigator.of(context).pop(); // Dismiss the loading dialog
 
       // Handle specific FirebaseAuth errors
@@ -114,118 +113,126 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.lock, size: 100),
-                SizedBox(height: 20),
-                Mytext(
-                  text: "Welcome in Social dz",
-                  color: colors.onPrimary,
-                  size: 35,
-                  isFight: true,
-                ),
-                SizedBox(height: 30),
-                Mytextfield(
-                  controller: email,
-                  hinttext: "Email",
-                  color: Color(0xFFE0E0E0),
-                  suffixicon: Icon(Icons.email),
-                  obsecurtext: false,
-                ),
-                SizedBox(height: 10),
-                Mytextfield(
-                  controller: password,
-                  hinttext: "Password",
-                  color: Color(0xFFE0E0E0),
-                  suffixicon: Icon(Icons.password),
-                  obsecurtext: true,
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPasswordScreen(),
-                            ),
-                          );
-                        },
-                        child: Mytext(
-                          text: "Forgot Password?",
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.lock, size: 100),
+                  SizedBox(height: 20),
+                  Mytext(
+                    text: "Welcome in Social dz",
+                    color: colors.onPrimary,
+                    size: 35,
+                    isFight: true,
+                  ),
+                  SizedBox(height: 30),
+                  Mytextfield(
+                    controller: email,
+                    hinttext: "Email",
+                    color: Color(0xFFE0E0E0),
+                    suffixicon: Icon(Icons.email),
+                    obsecurtext: false,
+                  ),
+                  SizedBox(height: 10),
+                  Mytextfield(
+                    controller: password,
+                    hinttext: "Password",
+                    color: Color(0xFFE0E0E0),
+                    suffixicon: Icon(Icons.password),
+                    obsecurtext: true,
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen(),
+                              ),
+                            );
+                          },
+                          child: Mytext(
+                            text: "Forgot Password?",
+                            color: colors.secondary,
+                            size: 15,
+                            isFight: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Mybutton(onTap: signin, text: 'Sign In'),
+                  SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: theme.dividerColor,
+                          ),
+                        ),
+                        Mytext(
+                          text: " OR Sign In with ",
                           color: colors.secondary,
+                          size: 17,
+                          isFight: true,
+                        ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            color: theme.dividerColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Google(
+                    imagepath: "assets/images/google.png",
+                    onTap: () => GoogleServices().signInWithGoogle(),
+                    text: "Sign In with google",
+                    color: Colors.black,
+                  ),
+                  SizedBox(height: 30),
+                  Facebook(
+                    imagepath: "assets/images/facebook.png",
+                    onTap: signin,
+                    text: "Sign In with Facebook",
+                  ),
+                  SizedBox(height: 25),
+                  Row(
+                    spacing: 4,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Mytext(
+                        text: "Don`t have an account? ",
+                        color: colors.onSurface,
+                        size: 15,
+                        isFight: false,
+                      ),
+                      GestureDetector(
+                        onTap: widget.onTap,
+                        child: Mytext(
+                          text: "Register",
+                          color: colors.secondaryContainer,
                           size: 15,
                           isFight: true,
                         ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 20),
-                Mybutton(onTap: signin, text: 'Sign In'),
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(thickness: 1, color: theme.dividerColor),
-                      ),
-                      Mytext(
-                        text: " OR Sign In with ",
-                        color: colors.secondary,
-                        size: 17,
-                        isFight: true,
-                      ),
-                      Expanded(
-                        child: Divider(thickness: 1, color: theme.dividerColor),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30),
-                Google(
-                  imagepath: "assets/images/google.png",
-                  onTap: () => GoogleServices().signInWithGoogle(),
-                  text: "Sign In with google",
-                  color: Colors.black,
-                ),
-                SizedBox(height: 30),
-                Facebook(
-                  imagepath: "assets/images/facebook.png",
-                  onTap: signin,
-                  text: "Sign In with Facebook",
-                ),
-                SizedBox(height: 25),
-                Row(
-                  spacing: 4,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Mytext(
-                      text: "Don`t have an account? ",
-                      color: colors.onSurface,
-                      size: 15,
-                      isFight: false,
-                    ),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: Mytext(
-                        text: "Register",
-                        color: colors.secondaryContainer,
-                        size: 15,
-                        isFight: true,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:social_dz/auth/auth_services.dart';
 import 'package:social_dz/firebase_options.dart' show DefaultFirebaseOptions;
@@ -9,6 +8,7 @@ import 'package:social_dz/providers/local_provider.dart';
 import 'package:social_dz/screens/login_or_register_screen.dart';
 import 'package:social_dz/screens/register_screen.dart';
 import 'package:social_dz/theme/thems.dart';
+import 'l10n/app_localizations.dart';
 import 'theme/theme_provider.dart';
 import 'screens/login_screen.dart';
 
@@ -53,9 +53,9 @@ class _MyAppState extends State<MyApp> {
       darkTheme: AppTheme.darkTheme,
       themeMode: _themeMode,
       locale: localeProvider.locale,
-      supportedLocales: L10n.supportedLocales,
-      localizationsDelegates: [
-        S.delegate,
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

@@ -14,5 +14,6 @@
   "alreadyHaveAccount": "Already have an account?",
   "login": "Login",
   "dontHaveAccount": "Don't have an account?",
-  "register": "Register"
+  "register": "Register",
+  "language": "Change Language"
 }

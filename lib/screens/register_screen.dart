@@ -68,15 +68,17 @@ class _LoginScreenState extends State<RegisterScreen> {
             password: password.text.trim(),
           );
       addUser(email.text, fullName.text);
-
+      if (!mounted) return;
       // Dismiss the loading dialog
       Navigator.of(context).pop();
 
       // Show success message
+
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Registration Successful')));
+      ).showSnackBar(const SnackBar(content: Text('Registration Success')));
     } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
       // Dismiss the loading dialog
       Navigator.of(context).pop();
 

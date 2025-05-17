@@ -14,5 +14,6 @@
   "alreadyHaveAccount": "هل لديك حساب؟",
   "login": "تسجيل الدخول",
   "dontHaveAccount": "ليس لديك حساب؟",
-  "register": "إنشاء حساب"
+  "register": "إنشاء حساب",
+  "language": "تغيير اللغة"
 }
